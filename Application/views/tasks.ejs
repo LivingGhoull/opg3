@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>TASKS</title>
+</head>
+<body>
+    <table class="users">
+        <tr>
+            <th>Id</th>
+            <th>Task name</th>
+            <th>Begin time</th>
+            <th>End time</th>
+            <th>update</th>
+            <th>Delete</th>
+        </tr>
+        <%
+        data.forEach(v => {        
+            let btime = v.beginTime.setDate(v.beginTime.getDate()+1)
+            btime = new Date(btime).toISOString().slice(0, 10)
+
+            let etime = v.endTime.setDate(v.endTime.getDate()+1)
+            etime = new Date(etime).toISOString().slice(0, 10)
+        %>
+        <tr>
+            <form action="tasksDeleteOrUpdate" method="post">
+                <td><input type="hidden" name="id" value="<%=v.id%>"><%=v.id%></td>
+                <td><input type="text" name="tName" value="<%=v.taskName%>"></td>
+                <td><input type="date" name="bTime" value="<%=btime%>"></td>
+                <td><input type="date" name="eTime" value="<%=etime%>"></td>
+                <td><input type="submit" name="choice" value="Update"></td>
+                <td><input type="submit" name="choice" value="Delete"></td>
+            </form>
+        </tr>
+        <%
+        });
+        %>
+        <tr>
+            <form action="tasksCreate" method="post">
+                <td>NR</td>
+                <td><input type="text" name="tName" required></td>
+                <td><input type="date" name="bTime" required></td>
+                <td><input type="date" name="eTime" required></td>
+                <td><input type="submit" value="Create"></td>
+            </form>
+        </tr>
+    </table>
+</body>
+</html>

@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>USER</title>
+</head>
+<body>
+    <table class="users">
+        <tr>
+            <th>Id</th>
+            <th>First name</th>
+            <th>Last name</th>
+            <th>Update</th>
+            <th>Delete</th>
+        </tr>
+        <%
+        data.forEach(v => {        
+        %>
+        <tr>
+            <form action="userDeleteOrUpdate" method="post">
+                <td><input type="hidden" name="id" value="<%=v.id%>"><%=v.id%></td>
+                <td><input type="text" name="fname" value="<%=v.fname%>"></td>
+                <td><input type="text" name="lname" value="<%=v.lname%>"></td>
+                <td><input type="submit" name="choice" value="Update"></td>
+                <td><input type="submit" name="choice" value="Delete"></td>
+            </form>
+        </tr>
+        <%
+        });
+        %>
+        <tr>
+            <form action="userCreate" method="post">
+                <td>NR</td>
+                <td><input type="text" name="fname" required></td>
+                <td><input type="text" name="lname" required></td>
+                <td><input type="submit" value="Create"></td>
+            </form>
+        </tr>
+    </table>
+</body>
+</html>
