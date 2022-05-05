@@ -8,12 +8,16 @@ app.use(bodyParser.json())
 
 app.use(express.static('public'))
 app.set('view engine', 'ejs')
-const con = Connection(mysql)
+const con  = Connection(mysql)
 
-app.get('/', (req, res) => { 
-    res.render('index')
+
+// Project
+app.get("/", function (req, res) {    
+    con.query("SELECT * FROM project INNER JOIN tasks ON project.taskID = tasks.id", function(err, data){
+        if(err) throw err
+        res.render('index', {data: data})
+    })
 })
-
 
 // Tasks
 app.get('/tasks', (req, res) => { 

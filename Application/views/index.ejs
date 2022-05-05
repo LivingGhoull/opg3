@@ -5,9 +5,32 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css">
-    <title>Website</title>
+    <title>GRANTT</title>
 </head>
 <body>
-    <h1>hello cunts</h1>
+    <table id="grantt">
+        <tr>
+            <th></th>
+    <%
+        const dt = new Date();
+        const month = dt.getMonth() + 1;
+        const year = dt.getFullYear();
+        const daysInMonth = new Date(year, month, 0).getDate();
+
+        for (let i = 1; i <= daysInMonth; i++) {
+            %>
+                <th><%=i%>/<%=month%></th>
+            <%
+        }
+    %>
+        </tr>
+        <%
+        data.forEach(v => {        
+        %>
+       
+        <%
+        });
+        %>
+    </table>
 </body>
 </html>

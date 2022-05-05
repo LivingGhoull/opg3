@@ -6,3 +6,8 @@ table.users, table.users th, table.users td{
     border: 1px solid black;
     border-collapse: collapse;
 }
+
+
+table#grantt{
+    border: 1px solid black;
+}
