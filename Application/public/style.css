@@ -2,12 +2,15 @@ html{
     background-color: gray;
 }
 
-table.users, table.users th, table.users td{
+table, table th, table td{
     border: 1px solid black;
     border-collapse: collapse;
 }
 
+td{
+    min-width: 20px;
+}
 
-table#grantt{
-    border: 1px solid black;
+.task{
+    background-color: white;
 }

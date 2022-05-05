@@ -11,9 +11,10 @@ app.set('view engine', 'ejs')
 const con  = Connection(mysql)
 
 
+
 // Project
 app.get("/", function (req, res) {    
-    con.query("SELECT * FROM project INNER JOIN tasks ON project.taskID = tasks.id", function(err, data){
+    con.query("SELECT * FROM tasks", function(err, data){
         if(err) throw err
         res.render('index', {data: data})
     })

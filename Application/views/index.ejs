@@ -8,29 +8,49 @@
     <title>GRANTT</title>
 </head>
 <body>
-    <table id="grantt">
+    <table>
         <tr>
-            <th></th>
+            <th>ID</th>
+            <th>TaskName</th>
     <%
         const dt = new Date();
+        const day = dt.getDay() + 1;
         const month = dt.getMonth() + 1;
         const year = dt.getFullYear();
         const daysInMonth = new Date(year, month, 0).getDate();
 
         for (let i = 1; i <= daysInMonth; i++) {
             %>
-                <th><%=i%>/<%=month%></th>
+                <th><%=i%></th>
             <%
         }
     %>
         </tr>
         <%
-        data.forEach(v => {        
+        data.forEach(v => { 
+            const btime = v.beginTime.toISOString().slice(8, 10)
+            const etime = v.endTime.toISOString().slice(8, 10)
+
         %>
-       
+            <tr>
+            <td><%=v.id%></td>
+            <td><%=v.taskName%></td>    
         <%
+            for (let i = 0; i < daysInMonth; i++) {
+                if(parseInt(btime) <= i && parseInt(etime) >= i){
+                %> 
+                    <td class="task"></td>
+                <% 
+                }
+                else{
+                    %> 
+                    <td></td>
+                    <% 
+                }
+            }
         });
         %>
+        </tr>
     </table>
 </body>
 </html>
