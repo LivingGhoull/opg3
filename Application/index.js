@@ -60,7 +60,6 @@ app.post("/taskDeleteOrUpdate", (req, res) => {
     const choice = req.body.choice
 
     if(choice == "Update"){
-        console.log("nr1")
         if(Date.parse(bTime) < Date.parse(eTime)){
             con.query('UPDATE tasks SET taskName=?, beginTime=?, endTime=? WHERE taskID=?', [tName, bTime, eTime, parseInt(id)])}
     }
@@ -86,9 +85,9 @@ app.post("/taskCreate", (req, res) => {
 })
 
 
-// Project
+// Gantt
 const query = "SELECT * FROM project INNER JOIN users ON users.userID = project.pUserID INNER JOIN tasks ON tasks.taskID = project.pTaskID WHERE project.pTaskID = ?"
-app.get("/", function (req, res) {    
+app.get("/", function (req, res) {
     con.query("SELECT * FROM tasks", function(err, data){
         if(err) throw err
         res.render('index', {data: data})
@@ -97,22 +96,25 @@ app.get("/", function (req, res) {
 
 app.post("/gantt", (req, res) => {
     const taskID = req.body.taskID
-    GanttPath(con, taskID, res)
+    const taskName = req.body.taskName
+    GanttPath(con, taskID, taskName, res)
 })
 
 app.post("/ganttDelete", (req, res) => {
     const userID = req.body.userID
     const taskID = req.body.taskID
+    const taskName = req.body.taskName
 
     con.query("DELETE FROM project WHERE pTaskID=? && pUserID=?", [parseInt(taskID), parseInt(userID)], function(err) {
     if(err) throw err    
-        GanttPath(con, taskID, res)
+        GanttPath(con, taskID, taskName, res)
     })
 })
 
 app.post("/ganttCreate", (req, res) => {
     const userID = req.body.userID
     const taskID = req.body.taskID
+    const taskName = req.body.taskName
 
     con.query("SELECT * FROM project WHERE pUserID=? && pTaskID=?",[userID, taskID], function(err, data){
         if(err) throw err
@@ -121,7 +123,7 @@ app.post("/ganttCreate", (req, res) => {
                 if(err) throw err
             })
         }
-        GanttPath(con, taskID, res)
+        GanttPath(con, taskID, taskName, res)
     })    
 })
 
@@ -133,7 +135,7 @@ app.post('/printTask', (req, res) => {
         if(data.length != 0){
             res.render('print', {data: data, choice: "user"})}
         else{
-            res.redirect("/")}
+            res.render('print', {data: [], choice: "user"})}
     })
 })
 
@@ -145,7 +147,7 @@ app.post('/printUser', (req, res) => {
         if(data.length != 0){
             res.render('print', {data: data, choice: "task"})}
         else{
-            res.redirect("/")}
+            res.render('print', {data: [], choice: "task"})}
     })
 })
 
@@ -163,11 +165,10 @@ function Connection(mysql){
     return conn
 }
 
-function GanttPath(con, taskID, res) {
+function GanttPath(con, taskID, taskName, res) {
     con.query(query, [taskID], function(err, data){
         if(err) throw err
-        //console.log(data)
-        res.render('gantt', {data: data, id: taskID})
+        res.render('gantt', {data: data, id: taskID, name: taskName})
     })
 }
 

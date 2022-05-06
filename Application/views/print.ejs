@@ -42,13 +42,17 @@
             </tr>
             <%
             });
-        }
+        } 
+        else if(choice == "user") {
+            %>
+                <h1>NO DATA TO BE FOUND</h1>
+            <%}
         %>
     </table>
 
     <table>
         <%
-        if(choice == "task" && data.length != 0){
+        if (choice == "task" && data.length != 0){
             %>
             <h1><%=data[0].taskName%></h1>
             <tr>
@@ -67,6 +71,10 @@
             <%
             });
         }
+        else if(choice == "task") {
+            %>
+                <h1>NO DATA TO BE FOUND</h1>
+            <%}
         %>
     </table>
 </body>

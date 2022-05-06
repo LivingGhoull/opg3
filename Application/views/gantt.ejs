@@ -13,6 +13,7 @@
         <a href="/user">Users</a>
         <a href="/task">Tasks</a>        
     </div>
+        <h1><%=name%></h1>
     <table>
       <tr>          
             <th>Task ID</th>
@@ -29,6 +30,7 @@
         <tr>
             <form action="ganttDelete" method="post">
                 <td><input type="hidden" name="taskID" value="<%=v.taskID%>"><%=v.taskID%></td>
+                <input type="hidden" name="taskName" value="<%=name%>">
                 <input type="hidden" name="userID" value="<%=v.userID%>">
                 <td><%=v.taskName%></td>
                 <td><%=v.userID%></td>
@@ -42,6 +44,7 @@
         }
         %>
     </table>
+            <h1>Add user to task</h1>
     <table>
         <tr>
             <th>Users ID</th>
@@ -49,6 +52,7 @@
         <tr>
             <form action="ganttCreate" method="post">
                 <td><input type="number" name="userID" required></td>
+                <input type="hidden" name="taskName" value="<%=name%>">
                 <input type="hidden" name="taskID" value="<%=id%>">
                 <td><input type="submit" value="Create"></td>
             </form>
