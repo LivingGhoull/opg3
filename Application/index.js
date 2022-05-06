@@ -151,8 +151,6 @@ app.post('/printUser', (req, res) => {
     })
 })
 
-
-
 function Connection(mysql){
     const conn = mysql.createConnection({
         host: "localhost",

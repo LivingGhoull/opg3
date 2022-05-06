@@ -20,13 +20,14 @@
             <th>TaskName</th>
     <%
         const dt = new Date();
+        const day = dt.getDay() + 1;
         const month = dt.getMonth() + 1;
         const year = dt.getFullYear();
         const daysInMonth = new Date(year, month, 0).getDate();
 
         for (let i = 1; i <= daysInMonth; i++) {
             %>
-                <th><%=i%></th>
+                <th><%=i +"/"+month%></th>
             <%
         }
     %>
@@ -50,14 +51,28 @@
         <%
             for (let i = 1; i < daysInMonth+1; i++) {
                 if(parseInt(btime) <= i && parseInt(etime) >= i){
-                %> 
-                    <td class="task"></td>
-                <% 
+                    if(day == i){    
+                        %> 
+                        <td style="background-color: red;"></td>
+                        <% 
+                    }
+                    else{
+                        %> 
+                        <td style="background-color: white;"></td>
+                        <% 
+                    }
                 }
                 else{
-                    %> 
-                    <td></td>
-                    <% 
+                    if(day == i){    
+                        %> 
+                        <td style="background-color: red;"></td>
+                        <% 
+                    }
+                    else{
+                        %> 
+                        <td></td>
+                        <% 
+                    }
                 }
             }
         });
