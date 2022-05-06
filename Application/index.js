@@ -66,7 +66,7 @@ app.post("/taskDeleteOrUpdate", (req, res) => {
     }
     else {
         con.query('DELETE FROM tasks WHERE taskID=?', [parseInt(id)])}
-    res.redirect("/tasks")
+    res.redirect("/task")
 })
 
 app.post("/taskCreate", (req, res) => {
@@ -82,7 +82,7 @@ app.post("/taskCreate", (req, res) => {
             }
         })
     }
-    res.redirect("/tasks")
+    res.redirect("/task")
 })
 
 
@@ -96,17 +96,17 @@ app.get("/", function (req, res) {
 })
 
 app.post("/gantt", (req, res) => {
-    const id = req.body.id
-    GanttPath(con, id, res)
+    const taskID = req.body.taskID
+    GanttPath(con, taskID, res)
 })
 
 app.post("/ganttDelete", (req, res) => {
     const userID = req.body.userID
     const taskID = req.body.taskID
 
-    con.query('DELETE FROM project WHERE pTaskID=? && pUserID=?', [parseInt(userID), parseInt(taskID)], function(err){
-        if(err) throw err
-        GanttPath(con, id, res)
+    con.query("DELETE FROM project WHERE pTaskID=? && pUserID=?", [parseInt(taskID), parseInt(userID)], function(err) {
+    if(err) throw err    
+        GanttPath(con, taskID, res)
     })
 })
 
@@ -114,18 +114,16 @@ app.post("/ganttCreate", (req, res) => {
     const userID = req.body.userID
     const taskID = req.body.taskID
 
-    con.query("SELECT * FROM project WHERE pUserID=? && pTaskID",[userID, taskID], function(err, data){
+    con.query("SELECT * FROM project WHERE pUserID=? && pTaskID=?",[userID, taskID], function(err, data){
         if(err) throw err
-        if(data.length != 1){
+        if(data.length == 0){
             con.query("INSERT INTO project(pUserID, pTaskID) VALUES(?, ?)", [userID, taskID], function(err){
                 if(err) throw err
-                GanttPath(con, taskID, res)
             })
         }
         GanttPath(con, taskID, res)
     })    
 })
-
 
 //print
 app.post('/printTask', (req, res) => { 
@@ -168,7 +166,8 @@ function Connection(mysql){
 function GanttPath(con, taskID, res) {
     con.query(query, [taskID], function(err, data){
         if(err) throw err
-        res.render('gantt', {data: data})
+        //console.log(data)
+        res.render('gantt', {data: data, id: taskID})
     })
 }
 

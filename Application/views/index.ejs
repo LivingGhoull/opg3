@@ -44,8 +44,8 @@
             <th><%=v.taskID%></th>
             <th> 
                 <form action="gantt" method="post">
-                    <input type="hidden" name="id" value="<%=v.taskID%>">
-                    <input type="submit" value="<%=v.taskName%>">
+                    <input type="hidden" name="taskID" value="<%=v.taskID%>">
+                    <input type="submit" name="taskName" value="<%=v.taskName%>">
                 </form>
             </th>    
         <%
