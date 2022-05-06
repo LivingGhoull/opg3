@@ -19,55 +19,64 @@ USE `opg3`;
 
 -- Dumping structure for tabel opg3.project
 CREATE TABLE IF NOT EXISTS `project` (
-  `userID` int(11) DEFAULT NULL,
-  `taskID` int(11) DEFAULT NULL,
-  KEY `userID` (`userID`),
-  KEY `taskID` (`taskID`),
-  CONSTRAINT `project_ibfk_1` FOREIGN KEY (`userID`) REFERENCES `users` (`id`),
-  CONSTRAINT `project_ibfk_2` FOREIGN KEY (`taskID`) REFERENCES `tasks` (`id`)
+  `pUserID` int(11) DEFAULT NULL,
+  `pTaskID` int(11) DEFAULT NULL,
+  KEY `pUserID` (`pUserID`),
+  KEY `pTaskID` (`pTaskID`),
+  CONSTRAINT `project_ibfk_1` FOREIGN KEY (`pUserID`) REFERENCES `users` (`userID`),
+  CONSTRAINT `project_ibfk_2` FOREIGN KEY (`pTaskID`) REFERENCES `tasks` (`taskID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
--- Dumping data for table opg3.project: ~0 rows (tilnærmelsesvis)
+-- Dumping data for table opg3.project: ~10 rows (tilnærmelsesvis)
 /*!40000 ALTER TABLE `project` DISABLE KEYS */;
-INSERT INTO `project` (`userID`, `taskID`) VALUES
-	(6, 12);
+INSERT INTO `project` (`pUserID`, `pTaskID`) VALUES
+	(3, 1),
+	(4, 1),
+	(3, 2),
+	(6, 2),
+	(5, 2),
+	(2, 3),
+	(3, 3),
+	(1, 4),
+	(6, 4),
+	(2, 4);
 /*!40000 ALTER TABLE `project` ENABLE KEYS */;
 
 -- Dumping structure for tabel opg3.tasks
 CREATE TABLE IF NOT EXISTS `tasks` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `taskID` int(11) NOT NULL AUTO_INCREMENT,
   `taskName` varchar(255) NOT NULL,
   `beginTime` date NOT NULL,
   `endTime` date NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=latin1;
+  PRIMARY KEY (`taskID`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
 
 -- Dumping data for table opg3.tasks: ~4 rows (tilnærmelsesvis)
 /*!40000 ALTER TABLE `tasks` DISABLE KEYS */;
-INSERT INTO `tasks` (`id`, `taskName`, `beginTime`, `endTime`) VALUES
-	(12, 'plan', '2022-05-02', '2022-05-04'),
-	(13, 'product', '2022-05-04', '2022-05-06'),
-	(14, 'process', '2022-05-06', '2022-05-10'),
-	(15, 'Delivery', '2022-05-10', '2022-05-11');
+INSERT INTO `tasks` (`taskID`, `taskName`, `beginTime`, `endTime`) VALUES
+	(1, 'Plan', '2022-05-01', '2022-05-06'),
+	(2, 'Product', '2022-05-06', '2022-05-12'),
+	(3, 'Process', '2022-05-12', '2022-05-17'),
+	(4, 'Delivery', '2022-05-17', '2022-05-19');
 /*!40000 ALTER TABLE `tasks` ENABLE KEYS */;
 
 -- Dumping structure for tabel opg3.users
 CREATE TABLE IF NOT EXISTS `users` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `userID` int(11) NOT NULL AUTO_INCREMENT,
   `fname` varchar(255) NOT NULL,
   `lname` varchar(255) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=latin1;
+  PRIMARY KEY (`userID`)
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;
 
--- Dumping data for table opg3.users: ~5 rows (tilnærmelsesvis)
+-- Dumping data for table opg3.users: ~6 rows (tilnærmelsesvis)
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
-INSERT INTO `users` (`id`, `fname`, `lname`) VALUES
-	(5, 'danniel', 'gaard'),
-	(6, 'Bob', 'Tom'),
-	(12, 'John', 'Snow'),
-	(13, 'Margrid', 'Tomas'),
-	(14, 'Kim', 'komm'),
-	(15, 'Billy', 'domm');
+INSERT INTO `users` (`userID`, `fname`, `lname`) VALUES
+	(1, 'Bob', 'Tom'),
+	(2, 'Tommas', 'Job'),
+	(3, 'Lars', 'Gaard'),
+	(4, 'Kim', 'Possible'),
+	(5, 'Hank', 'Cruser'),
+	(6, 'Brian', 'Grifen');
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
