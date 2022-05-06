@@ -8,13 +8,18 @@
     <title>GRANTT</title>
 </head>
 <body>
+    <div class="topnav">
+        <a class="active" href="/">Forside</a>
+        <a href="/user">Users</a>
+        <a href="/task">Tasks</a>
+    </div>
+      
     <table>
         <tr>
             <th>ID</th>
             <th>TaskName</th>
     <%
         const dt = new Date();
-        const day = dt.getDay() + 1;
         const month = dt.getMonth() + 1;
         const year = dt.getFullYear();
         const daysInMonth = new Date(year, month, 0).getDate();
@@ -28,15 +33,22 @@
         </tr>
         <%
         data.forEach(v => { 
-            const btime = v.beginTime.toISOString().slice(8, 10)
-            const etime = v.endTime.toISOString().slice(8, 10)
+            let btime = v.beginTime.setDate(v.beginTime.getDate()+1)
+            btime = new Date(btime).toISOString().slice(8, 10)
 
+            let etime = v.endTime.setDate(v.endTime.getDate()+1)
+            etime = new Date(etime).toISOString().slice(8, 10)
         %>
             <tr>
-            <td><%=v.id%></td>
-            <td><%=v.taskName%></td>    
+            <th><%=v.taskID%></th>
+            <th> 
+                <form action="gantt" method="post">
+                    <input type="hidden" name="id" value="<%=v.taskID%>">
+                    <input type="submit" value="<%=v.taskName%>">
+                </form>
+            </th>    
         <%
-            for (let i = 0; i < daysInMonth; i++) {
+            for (let i = 1; i < daysInMonth+1; i++) {
                 if(parseInt(btime) <= i && parseInt(etime) >= i){
                 %> 
                     <td class="task"></td>
@@ -51,6 +63,25 @@
         });
         %>
         </tr>
+    </table>
+    <table>
+        <tr>
+            <th>User ID</th>
+        </tr>
+        <form action="printTask" method="post">
+            <td><input type="text" name="id" value=""></td>
+            <td><input type="submit" value="Submit"></td>
+        </form>
+    </table>
+
+    <table>
+        <tr>
+            <th>Task ID</th>
+        </tr>
+        <form action="printUser" method="post">
+            <td><input type="text" name="id" value=""></td>
+            <td><input type="submit" value="Submit"></td>
+        </form>
     </table>
 </body>
 </html>

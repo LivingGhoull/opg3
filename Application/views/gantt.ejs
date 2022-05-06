@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>GRANTT2</title>
+</head>
+<body>
+    <div class="topnav">
+        <a class="active" href="/">Forside</a>
+        <a href="/user">Users</a>
+        <a href="/task">Tasks</a>        
+        <a href="/print">Udskriv</a>
+    </div>
+    <table>
+        <tr>          
+            <th>Task ID</th>
+            <th>Task name</th>
+            <th>User ID</th>
+            <th>First name</th>
+            <th>Last name</th>
+            <th>Delete</th>
+        </tr>
+        <%
+        data.forEach(v => {        
+        %>
+        <tr>
+            <form action="ganttDelete" method="post">
+                <td><input type="hidden" name="userID" value="<%=v.taskID%>"><%=v.taskID%></td>
+                <input type="hidden" name="taskID" value="<%=v.userID%>">
+                <td><%=v.taskName%></td>
+                <td><%=v.userID%></td>
+                <td><%=v.fname%></td>
+                <td><%=v.lname%></td>
+                <td><input type="submit" name="choice" value="Delete"></td>
+            </form>
+        </tr>
+        <%
+        });
+        %>
+    </table>
+    <table>
+        <tr>
+            <th>Users ID</th>
+            <th>Tasks ID</th>
+            <th></th>
+        </tr>
+        <tr>
+            <form action="ganttCreate" method="post">
+                <td><input type="number" name="userID" required></td>
+                <td><input type="number" name="taskID" required></td>
+                <td><input type="submit" value="Create"></td>
+            </form>
+        </tr>
+    </table>
+</body>
+</html>

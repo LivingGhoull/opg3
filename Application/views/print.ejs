@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>PRINT</title>
+</head>
+<body>
+    <div class="topnav">
+        <a href="/">Forside</a>
+        <a href="/user">Users</a>
+        <a href="/task">Tasks</a>
+    </div>
+
+    <table>
+        <%
+        if(choice == "user" && data.length != 0){
+            %>
+            <h1><%=data[0].fname + " " + data[0].lname%></h1>
+            <tr>
+                <th>Task ID</th>
+                <th>Task name</th>
+                <th>Begin time</th>
+                <th>End time</th>
+            </tr>
+
+            <%
+            data.forEach(v => {     
+                let btime = v.beginTime.setDate(v.beginTime.getDate()+1)
+                btime = new Date(btime).toISOString().slice(0, 10)
+    
+                let etime = v.endTime.setDate(v.endTime.getDate()+1)
+                etime = new Date(etime).toISOString().slice(0, 10)   
+            %>
+            <tr>
+                <td><%=v.taskID%></td>
+                <td><%=v.taskName%></td>
+                <td><%=btime%></td>
+                <td><%=etime%></td>
+            </tr>
+            <%
+            });
+        }
+        %>
+    </table>
+
+    <table>
+        <%
+        if(choice == "task" && data.length != 0){
+            %>
+            <h1><%=data[0].taskName%></h1>
+            <tr>
+                <th>User ID</th>
+                <th>First name</th>
+                <th>Last name</th>
+            </tr>
+            <%
+            data.forEach(v => {     
+            %>
+            <tr>
+                <td><%=v.userID%></td>
+                <td><%=v.fname%></td>
+                <td><%=v.lname%></td>
+            </tr>
+            <%
+            });
+        }
+        %>
+    </table>
+</body>
+</html>

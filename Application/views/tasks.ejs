@@ -8,9 +8,14 @@
     <title>TASKS</title>
 </head>
 <body>
+    <div class="topnav">
+        <a href="/">Forside</a>
+        <a href="/user">Users</a>
+        <a class="active" href="/task">Tasks</a>
+    </div>
     <table>
         <tr>
-            <th>Id</th>
+            <th>ID</th>
             <th>Task name</th>
             <th>Begin time</th>
             <th>End time</th>
@@ -26,8 +31,8 @@
             etime = new Date(etime).toISOString().slice(0, 10)
         %>
         <tr>
-            <form action="tasksDeleteOrUpdate" method="post">
-                <td><input type="hidden" name="id" value="<%=v.id%>"><%=v.id%></td>
+            <form action="taskDeleteOrUpdate" method="post">
+                <td><input type="hidden" name="id" value="<%=v.taskID%>"><%=v.taskID%></td>
                 <td><input type="text" name="tName" value="<%=v.taskName%>"></td>
                 <td><input type="date" name="bTime" value="<%=btime%>"></td>
                 <td><input type="date" name="eTime" value="<%=etime%>"></td>
@@ -39,7 +44,7 @@
         });
         %>
         <tr>
-            <form action="tasksCreate" method="post">
+            <form action="taskCreate" method="post">
                 <td>NR</td>
                 <td><input type="text" name="tName" required></td>
                 <td><input type="date" name="bTime" required></td>
