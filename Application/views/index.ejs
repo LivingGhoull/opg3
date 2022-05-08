@@ -20,7 +20,7 @@
             <th>TaskName</th>
     <%
         const dt = new Date();
-        const day = dt.getDay() + 1;
+        const day = dt.getDate();
         const month = dt.getMonth() + 1;
         const year = dt.getFullYear();
         const daysInMonth = new Date(year, month, 0).getDate();
